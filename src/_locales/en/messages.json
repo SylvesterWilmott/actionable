@@ -9,7 +9,7 @@
     "message": "Copy"
   },
   "action_label_copy": {
-    "message": "Copy"
+    "message": "Copy To Clipboard"
   },
   "action_affordance_search": {
     "message": "Search"
