@@ -1,0 +1,68 @@
+{
+  "ext_name": {
+    "message": "Actionable: Customizable Menu"
+  },
+  "ext_description": {
+    "message": "Customizable, one-click contextual menu."
+  },
+  "action_affordance_copy": {
+    "message": "Copy"
+  },
+  "action_label_copy": {
+    "message": "Copy"
+  },
+  "action_affordance_search": {
+    "message": "Search"
+  },
+  "action_label_search": {
+    "message": "Search Via Default Provider"
+  },
+  "action_affordance_call": {
+    "message": "Call"
+  },
+  "action_label_call": {
+    "message": "Call Number"
+  },
+  "action_affordance_email": {
+    "message": "Email"
+  },
+  "action_label_email": {
+    "message": "Send Email"
+  },
+  "action_affordance_download": {
+    "message": "Save As..."
+  },
+  "action_label_download": {
+    "message": "Save Text As"
+  },
+  "action_affordance_youtube": {
+    "message": "Youtube"
+  },
+  "action_label_youtube": {
+    "message": "Search Youtube"
+  },
+  "action_affordance_maps": {
+    "message": "Maps"
+  },
+  "action_label_maps": {
+    "message": "Search Google Maps"
+  },
+  "action_affordance_wikipedia": {
+    "message": "Wikipedia"
+  },
+  "action_label_wikipedia": {
+    "message": "Search Wikipedia"
+  },
+  "action_affordance_speak": {
+    "message": "Speak"
+  },
+  "action_label_speak": {
+    "message": "Speak Text"
+  },
+  "action_label_words": {
+    "message": "Word Count"
+  },
+  "action_label_characters": {
+    "message": "Character Count"
+  }
+}
