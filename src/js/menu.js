@@ -3,7 +3,7 @@
 let menu;
 
 document.addEventListener("mouseup", function (e) {
-  if (menu && e.target !== menu) {
+  if (e.target !== menu) {
     removeMenu();
   }
 });
@@ -19,6 +19,9 @@ document.addEventListener(
   }, 250)
 );
 
+document.addEventListener("contextmenu", removeMenu);
+document.addEventListener("keydown", removeMenu);
+
 window.addEventListener(
   "resize",
   debounce(function () {
@@ -27,12 +30,6 @@ window.addEventListener(
     }
   }, 100)
 );
-
-document.addEventListener("contextmenu", function (e) {
-  if (menu) {
-    removeMenu();
-  }
-});
 
 async function drawMenu() {
   let selection = window.getSelection();
@@ -43,7 +40,6 @@ async function drawMenu() {
     chrome.runtime?.id &&
     selectedText.length > 0 &&
     selection.rangeCount > 0 &&
-    selectedText.length > 1 &&
     document.activeElement.tagName.toLowerCase() !== "input"
   ) {
     let range = selection.getRangeAt(0);
@@ -226,8 +222,10 @@ async function getUserActions() {
 }
 
 function removeMenu() {
-  menu.remove();
-  menu = null;
+  if (menu) {
+    menu.remove();
+    menu = null;
+  }
 }
 
 function loadFromStorage(key, defaults) {
