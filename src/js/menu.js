@@ -43,10 +43,11 @@ async function drawMenu() {
     chrome.runtime?.id &&
     selectedText.length > 0 &&
     selection.rangeCount > 0 &&
-    selectedText.length > 1
+    selectedText.length > 1 &&
+    document.activeElement.tagName.toLowerCase() !== "input"
   ) {
     let range = selection.getRangeAt(0);
-    let rect = range.getBoundingClientRect();
+    let rect = getRect(range);
 
     if (menu) removeMenu();
 
@@ -95,6 +96,59 @@ async function drawMenu() {
 
     menu.addEventListener("click", onMenuClicked);
   }
+}
+
+function getRect(range) {
+  let rect = {};
+  let activeEl = document.activeElement;
+
+  if (activeEl && activeEl.tagName.toLowerCase() == "textarea") {
+    let div = document.createElement("div");
+    let startSpan = document.createElement("span");
+    let endSpan = document.createElement("span");
+    let styles = getComputedStyle(activeEl);
+
+    for (let s of styles) {
+      div.style[s] = styles[s];
+    }
+
+    // Reset margin
+    div.style.margin = "none";
+
+    document.body.appendChild(div);
+
+    // This monstrosity finds the rect of a selection in a textarea
+    let activeElPos = activeEl.getBoundingClientRect();
+
+    div.style.position = "fixed";
+    div.style.top = activeElPos.y + "px";
+    div.style.left = activeElPos.x + "px";
+
+    div.innerText = activeEl.value.substring(0, activeEl.selectionStart);
+    div.appendChild(startSpan);
+
+    let startSpanRect = startSpan.getBoundingClientRect();
+    rect.top = startSpanRect.top;
+    rect.left = startSpanRect.left;
+    startSpan.remove();
+
+    div.innerText = activeEl.value.substring(0, activeEl.selectionEnd);
+    div.appendChild(endSpan);
+
+    let endSpanRect = endSpan.getBoundingClientRect();
+
+    if (endSpanRect.left < rect.left) {
+      rect.width = rect.left - endSpanRect.left;
+    } else {
+      rect.width = endSpanRect.left - rect.left;
+    }
+
+    document.body.removeChild(div);
+  } else {
+    rect = range.getBoundingClientRect();
+  }
+
+  return rect;
 }
 
 function getContext(text) {
