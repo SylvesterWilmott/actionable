@@ -2,8 +2,8 @@
 
 let menu;
 
-document.addEventListener("mouseup", function (e) {
-  if (e.target !== menu) {
+document.addEventListener("click", function (e) {
+  if (menu && e.target !== menu) {
     removeMenu();
   }
 });
@@ -11,10 +11,8 @@ document.addEventListener("mouseup", function (e) {
 document.addEventListener(
   "mouseup",
   debounce(function (e) {
-    if (e.target !== menu) {
+    if (!menu) {
       drawMenu();
-    } else {
-      removeMenu();
     }
   }, 250)
 );
@@ -26,7 +24,7 @@ window.addEventListener(
   "resize",
   debounce(function () {
     if (menu) {
-      removeMenu();
+      drawMenu();
     }
   }, 100)
 );
@@ -262,6 +260,8 @@ async function onMenuClicked(e) {
   if (path) {
     executeAction(path[0].id);
   }
+
+  setTimeout(removeMenu, 250);
 }
 
 function countCharacters(text) {
